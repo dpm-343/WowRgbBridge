@@ -1,0 +1,6 @@
+## Interface: 16001
+## Title: WoW Keyboard RGB
+## Author: Michael Odom
+## Version: 0.1
+
+WoWKeyboardRGB.lua
