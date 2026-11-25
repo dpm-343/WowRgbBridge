@@ -1,0 +1,30 @@
+{
+  "foregroundProcessName": "Wow",
+  "keyboardName": "G915 TKL",
+  "signatureColors": ["#FF0000", "#00FF00", "#0000FF", "#000000"],
+  "footerColor": "#FFFFFF",
+  "defaultKeyColor": "#550000",
+  "signatureColorTolerance": 25,
+  "ledMappings": [
+    "Key: 1",
+    "Key: 2",
+    "Key: 3",
+    "Key: 4",
+    "Key: 5",
+    "Key: 6",
+    "Key: 7",
+    "Key: 8",
+    "Key: 9",
+    "Key: 0",
+    "Key: -",
+    "Key: ="
+  ],
+  "statusLed": "Key: Escape",
+  "updateFrequencyMs": 100,
+  "staticLeds":  {
+    "Key: W": "#0000AA",
+    "Key: A": "#0000AA",
+    "Key: S": "#0000AA",
+    "Key: D": "#0000AA"
+  }
+}
