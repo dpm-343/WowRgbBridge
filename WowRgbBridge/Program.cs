@@ -69,6 +69,7 @@ while (true)
 
                 // Update Status Key
                 if (config.StatusLed != null) await keyboardManager.UpdateLed(config.StatusLed, Color.FromArgb(0,255,0));
+                
             } else
             {
                 Console.WriteLine("Marker sequence was lost. Resetting screen position...");
@@ -77,25 +78,35 @@ while (true)
                 if (config.StatusLed != null) await keyboardManager.UpdateLed(config.StatusLed, Color.FromArgb(255,0,0));
 
             }
+            Thread.Sleep(config.UpdateFrequencyMs);
+            continue;
         } else // squares is null, so we need to find the marker sequence on the screen.
         {
             Console.WriteLine("No marker sequence found on the screen. Scanning for the marker sequence...");
-            squares = pixelReader.FindSquares();   // Finds the pixel bar on the screen based on the four marker colors
+            squares = pixelReader.FindSquares("screencap.bmp");   // Finds the pixel bar on the screen based on the four marker colors
 
-            await keyboardManager.SetDefaultKeyColor(Keyboard.ParseColorFromHex(config.defaultKeyColor));
-            await keyboardManager.SetStaticLeds(config.StaticLeds);
-            continue;
+            if(squares != null) {
+                Console.WriteLine("Found sequence...");
+                await keyboardManager.SetDefaultKeyColor(Keyboard.ParseColorFromHex(config.defaultKeyColor));
+                await keyboardManager.SetStaticLeds(config.StaticLeds);
+                continue;
+            } else
+            {
+                // If cannot find sequence then sleep for 1 sec
+                Thread.Sleep(1000);
+                await keyboardManager.SetDefaultKeyColor(Keyboard.ParseColorFromHex(config.defaultKeyColor));
+                if (config.StatusLed != null) await keyboardManager.UpdateLed(config.StatusLed, Color.FromArgb(255,0,0));
+            }
+
         }
-
-        Thread.Sleep(config.UpdateFrequencyMs);
-        continue;
 
     } else
     {
         Console.WriteLine($"Foreground process is \"{foregroundProcessName ?? "unknown"}\", not \"{config.ForegroundProcessName}\". Sleeping for 1 second.");
+        //await Task.Delay(1000);
         await keyboardManager.SetDefaultKeyColor(Keyboard.ParseColorFromHex(config.defaultKeyColor));
-        Thread.Sleep(1000);
-        continue;
+        //if (config.StatusLed != null) await keyboardManager.UpdateLed(config.StatusLed, Color.FromArgb(255,0,0));
+        await Task.Delay(1000);
     }
     
 
