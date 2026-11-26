@@ -134,7 +134,7 @@ namespace WowRgbBridge
                         deviceIndex,
                         keyIndex.Value,
                         GetColorFromSystemDrawingColor(data.color));
-                    //await Task.Delay(TimeSpan.FromMilliseconds(5));
+                    await Task.Delay(TimeSpan.FromMilliseconds(5));
                 } else
                 {
                     Console.WriteLine($"Unable to find key index for {data.keyName} on device {deviceIndex}");
